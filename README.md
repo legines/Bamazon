@@ -7,7 +7,7 @@ Bamazon is an Amazon like command-line interfaces for customers.
 
 
 ## How to Run
-To run Bamazon on Windows and Mac, you will need [Bash](https://git-scm.com/downloads/), [Node](https://nodejs.org/en/), [npm](https://www.npmjs.com/get-npm?utm_source=house&utm_medium=homepage&utm_campaign=free%20orgs&utm_term=Install%20npm), and [MySQL Workbench](https://dev.mysql.com/downloads/workbench/).
+To run Bamazon you will need [Bash](https://git-scm.com/downloads/), [Node](https://nodejs.org/en/), [npm](https://www.npmjs.com/get-npm?utm_source=house&utm_medium=homepage&utm_campaign=free%20orgs&utm_term=Install%20npm), and [MySQL Workbench](https://dev.mysql.com/downloads/workbench/).
 
 1. In Bash, to clone the repo type `git clone repo-link-here` to download Bamazon.
 
@@ -28,12 +28,12 @@ As a customer, you can check for products that are for sale and buy them.
 
 To buy an item, enter the item ID and quantity. 
 
-![Customer: Step 1](images/start.png?raw=true)
+![Customer: Step 1](images/start.png)
 
 If an item is out of stock or the quanitty isnt enough, customer is prompted to reorder
 
-![How to Run: Step 2](images/order.png?raw=true)
+![How to Run: Step 2](images/oos.png)
 
 The total is calculated based on quantity once an order goes through.
 
-![How to Run: Step 3](images/oos.png?raw=true)
+![How to Run: Step 3](images/order.png)
