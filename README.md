@@ -28,7 +28,7 @@ As a customer, you can check for products that are for sale and buy them.
 
 To buy an item, enter the item ID and quantity. 
 
-![Customer: Step 1](images/start.png)
+![Customer: Step 1](images/start.png | width=250px)
 
 If an item is out of stock or the quanitty isnt enough, customer is prompted to reorder
 
