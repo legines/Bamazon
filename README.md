@@ -3,7 +3,7 @@ Bamazon is an Amazon like command-line interfaces for customers.
 
 
 ## Technologies Used
-- [x] ES7, Node, MySQL
+- [x] ES6, Node, MySQL
 
 
 ## How to Run
