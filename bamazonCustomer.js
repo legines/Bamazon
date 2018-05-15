@@ -5,11 +5,11 @@ var connection = mysql.createConnection({
   host: "localhost",
   port: 3306,
   user: "root",
-  password: "F1|21NMuHlax0RbZ",
+  password: "",
   database: "bamazon_db"
 });
 
-// validateInput makes sure that the user is supplying only positive integers for their inputs
+// Input validation. Users only provide positive integers for their inputs
 function validateInput(value) {
   var integer = Number.isInteger(parseFloat(value));
   var sign = Math.sign(value);
@@ -21,8 +21,8 @@ function validateInput(value) {
     }
 };
 
-// promptUserPurchase will prompt the user for the item/quantity they would like to purchase
-function promptUserPurchase() {
+// Prompt users for the item/quantity they would like to purchase
+function purchasePrompt() {
   // Prompt the user to select an item
   inquirer.prompt([
   {
@@ -45,27 +45,27 @@ function promptUserPurchase() {
   var quantity = input.quantity;
 
   // Query db to confirm that the given item ID exists in the desired quantity
-  var queryStr = 'SELECT * FROM products WHERE ?';
+  var queryDB = 'SELECT * FROM products WHERE ?';
 
-  connection.query(queryStr, {item_id: item}, function(err, data) {
+  connection.query(queryDB, {item_id: item}, function(err, stock) {
     if (err) throw err;
 
-    if (data.length === 0) {
+    if (stock.length === 0) {
       console.log('ERROR: Invalid Item ID. Please select a valid Item ID.');
       
-      displayInventory();
+      inventory();
       } else {
 
-          var productData = data[0];
+          var productData = stock[0];
 
           // If the quantity requested by the user is in stock
           if (quantity <= productData.stock_quantity) {
 
-            // Construct the updating query string
-            var updateQueryStr = 'UPDATE products SET stock_quantity = ' + (productData.stock_quantity - quantity) + ' WHERE item_id = ' + item;
+            // Update the query string
+            var updtQueryDB = 'UPDATE products SET stock_quantity = ' + (productData.stock_quantity - quantity) + ' WHERE item_id = ' + item;
 
             // Update the inventory
-            connection.query(updateQueryStr, function(err, data) {
+            connection.query(updtQueryDB, function(err, stock) {
               if (err) throw err;
 
               console.log('You have ordered ' + quantity + 'x ' + productData.product_name); 
@@ -81,7 +81,7 @@ function promptUserPurchase() {
               console.log('Please modify your order.');
               console.log("\n----------------------------------------------------------------------------------\n");
 
-              displayInventory();
+              inventory();
           }
       }
   })
@@ -89,32 +89,32 @@ function promptUserPurchase() {
 };
   
 // Shows current inventory
-function displayInventory() {
+function inventory() {
 
-  queryStr = 'SELECT * FROM products';
+  queryDB = 'SELECT * FROM products';
 
   // Make the db query
-  connection.query(queryStr, function(err, data) {
+  connection.query(queryDB, function(err, stock) {
     if (err) throw err;
 
-    var strOut = '';
+    var output = '';
     console.log('----------------------------------------------------------------------------------');
     console.log('Item ID     Product Name                                  Deparment          Price');
     console.log('----------------------------------------------------------------------------------');
-    for (var i = 0; i < data.length; i++) {
-      strOut = '';
-      strOut += data[i].item_id + '           ';
-      strOut += data[i].product_name + '              ';
-      strOut += data[i].department_name + '        ';
-      strOut += '$' + data[i].price + '\n';
+    for (var i = 0; i < stock.length; i++) {
+      output = '';
+      output += stock[i].item_id + '           ';
+      output += stock[i].product_name + '              ';
+      output += stock[i].department_name + '        ';
+      output += '$' + stock[i].price + '\n';
 
-    console.log(strOut);
+    console.log(output);
     }
 
  console.log("----------------------------------------------------------------------------------\n");
 
  //Prompt the user for item/quantity they would like to purchase
-  promptUserPurchase();
+  purchasePrompt();
   })
 };
 
@@ -122,7 +122,7 @@ function displayInventory() {
 function runBamazon() {
 
   // Display the available inventory
-  displayInventory();
+  inventory();
 };
 
 runBamazon();
